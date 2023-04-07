@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Date;
 import java.util.Objects;
 
-@Entity
+@Entity(name = "experiences")
 @Table(name = "experiences", schema = "java_spring_demo", catalog = "")
 public class ExperienceEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,6 +29,19 @@ public class ExperienceEntity {
     @Basic
     @Column(name = "end_time")
     private Date endTime;
+
+    public ExperienceEntity() {
+    }
+
+    public ExperienceEntity(int id, int userId, String company, String position, String description, Date startTime, Date endTime) {
+        this.id = id;
+        this.userId = userId;
+        this.company = company;
+        this.position = position;
+        this.description = description;
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
 
     public int getId() {
         return id;
