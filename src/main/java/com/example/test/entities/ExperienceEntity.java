@@ -1,6 +1,8 @@
 package com.example.test.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.sql.Date;
 import java.util.Objects;
 
@@ -16,9 +18,11 @@ public class ExperienceEntity {
     private int userId;
     @Basic
     @Column(name = "company")
+    @Size(min = 2, max = 255, message = "Size must be between 2 and 255")
     private String company;
     @Basic
     @Column(name = "position")
+    @NotEmpty(message = "Company cannot be empty")
     private String position;
     @Basic
     @Column(name = "description")

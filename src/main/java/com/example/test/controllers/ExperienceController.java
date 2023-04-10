@@ -50,21 +50,15 @@ public class ExperienceController {
     }
 
     @PostMapping(value = "")
-    public ResponseEntity<Object> save(@Valid @RequestBody ExperienceEntity experience, BindingResult result) {
+    public ResponseEntity<Object> save(@Valid @RequestBody ExperienceEntity experience) {
         ResponseDTO responseDTO = new ResponseDTO();
-        if (result.hasErrors()) {
-            List<String> lsMsg = new ArrayList<>();
-            for (ObjectError err : result.getAllErrors()) {
-                String field = ((FieldError) err).getField();
-                lsMsg.add(field + ": " + err.getDefaultMessage());
-            }
-            responseDTO.setStatus("FAIL");
-            responseDTO.setObject(lsMsg);
-            return ResponseEntity.ok(responseDTO);
-        }
+        Map<String, String> msg = new HashMap<>();
         experienceRepository.save(experience);
+        msg.put("success", "create experience successfully");
+        responseDTO.setCode("200");
         responseDTO.setStatus("SUCCESS");
-        responseDTO.setObject(experience);
+        responseDTO.setMessage(msg);
+        responseDTO.setData(experience);
         return ResponseEntity.ok(responseDTO);
     }
 
@@ -90,15 +84,15 @@ public class ExperienceController {
         return ResponseEntity.notFound().build();
     }
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Map<String, String> handleValidationException(MethodArgumentNotValidException ex) {
-        Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getAllErrors().forEach((error) -> {
-            String fieldName = ((FieldError) error).getField();
-            String errorMessage = error.getDefaultMessage();
-            errors.put(fieldName, errorMessage);
-        });
-        return errors;
-    }
+//    @ResponseStatus(HttpStatus.BAD_REQUEST)
+//    @ExceptionHandler(MethodArgumentNotValidException.class)
+//    public Map<String, String> handleValidationException(MethodArgumentNotValidException ex) {
+//        Map<String, String> errors = new HashMap<>();
+//        ex.getBindingResult().getAllErrors().forEach((error) -> {
+//            String fieldName = ((FieldError) error).getField();
+//            String errorMessage = error.getDefaultMessage();
+//            errors.put(fieldName, errorMessage);
+//        });
+//        return errors;
+//    }
 }

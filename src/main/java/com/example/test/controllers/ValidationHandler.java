@@ -1,5 +1,6 @@
 package com.example.test.controllers;
 
+import com.example.test.dto.ResponseDTO;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,11 +20,16 @@ public class ValidationHandler extends ResponseEntityExceptionHandler {
                                                                   HttpHeaders headers, HttpStatus status,
                                                                   WebRequest request) {
         Map<String, String> errors = new HashMap<>();
+        ResponseDTO responseDTO = new ResponseDTO();
         ex.getBindingResult().getAllErrors().forEach((error) -> {
             String fieldName = ((FieldError) error).getField();
             String errorMessage = error.getDefaultMessage();
             errors.put(fieldName, errorMessage);
+            responseDTO.setMessage(errors);
+
         });
-        return new ResponseEntity<Object>(errors, HttpStatus.BAD_REQUEST);
+        responseDTO.setCode("400");
+        responseDTO.setStatus("FAIL");
+        return new ResponseEntity<Object>(responseDTO, HttpStatus.BAD_REQUEST);
     }
 }

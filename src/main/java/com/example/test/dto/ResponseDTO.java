@@ -1,8 +1,27 @@
 package com.example.test.dto;
 
 public class ResponseDTO {
+    String code;
     String status;
-    Object object;
+    Object message;
+
+    Object data;
+
+    public Object getMessage() {
+        return message;
+    }
+
+    public void setMessage(Object message) {
+        this.message = message;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 
     public String getStatus() {
         return status;
@@ -12,11 +31,11 @@ public class ResponseDTO {
         this.status = status;
     }
 
-    public Object getObject() {
-        return object;
+    public Object getData() {
+        return data;
     }
 
-    public void setObject(Object object) {
-        this.object = object;
+    public void setData(Object data) {
+        this.data = data;
     }
 }
