@@ -14,11 +14,11 @@ public class UserEntity {
     @Column(name = "username")
     private String username;
     @Basic
-    @Column(name = "password")
-    private String password;
-    @Basic
     @Column(name = "email")
     private String email;
+    @Basic
+    @Column(name = "password")
+    private String password;
     @Basic
     @Column(name = "address")
     private String address;
@@ -45,10 +45,10 @@ public class UserEntity {
     public UserEntity() {
     }
 
-    public UserEntity(String username, String password, String email) {
+    public UserEntity(String username, String email, String password) {
         this.username = username;
-        this.password = password;
         this.email = email;
+        this.password = password;
     }
 
     public Set<RoleEntity> getRoles() {

@@ -32,35 +32,6 @@ public class UserRoleEntity {
         this.id = id;
     }
 
-//    public int getRoleId() {
-//        return roleId;
-//    }
-//
-//    public void setRoleId(int roleId) {
-//        this.roleId = roleId;
-//    }
-//
-//    public int getUserId() {
-//        return userId;
-//    }
-//
-//    public void setUserId(int userId) {
-//        this.userId = userId;
-//    }
-
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        UserRoleEntity that = (UserRoleEntity) o;
-//        return id == that.id && roleId == that.roleId && userId == that.userId;
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(id, roleId, userId);
-//    }
-//
     public UserEntity getUsersByUserId() {
         return usersByUserId;
     }

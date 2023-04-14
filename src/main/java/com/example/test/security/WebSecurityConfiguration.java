@@ -1,6 +1,5 @@
 package com.example.test.security;
 
-//import com.example.javaspringdemo.services.eloquents.CustomUserDetailService;
 import com.example.test.security.jwt.AuthEntryPointJwt;
 import com.example.test.security.jwt.AuthTokenFilter;
 import com.example.test.security.services.UserDetailsServiceImpl;
@@ -53,7 +52,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests().antMatchers("/api/auth/**").permitAll()
-                //.antMatchers("/api/test/**").permitAll()
                 .anyRequest().authenticated();
         http.addFilterBefore(authenticationJwtTokenFilter(),
                 UsernamePasswordAuthenticationFilter.class);
