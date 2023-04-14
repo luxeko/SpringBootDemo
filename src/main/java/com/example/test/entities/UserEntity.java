@@ -1,8 +1,7 @@
 package com.example.test.entities;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.Objects;
+import java.util.*;
 
 @Entity(name = "users")
 @Table(name = "users", schema = "java_spring_demo", catalog = "")
@@ -10,7 +9,7 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
-    private int id;
+    private Long id;
     @Basic
     @Column(name = "username")
     private String username;
@@ -36,11 +35,35 @@ public class UserEntity {
     @Column(name = "freelance")
     private String freelance;
 
-    public int getId() {
+    @OneToMany(mappedBy = "usersByUserId")
+    private Collection<UserRoleEntity> userRolesById;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "userId"), inverseJoinColumns = @JoinColumn(name
+            = "roleId"))
+    private Set<RoleEntity> roles = new HashSet<>();
+
+    public UserEntity() {
+    }
+
+    public UserEntity(String username, String password, String email) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    }
+
+    public Set<RoleEntity> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<RoleEntity> roles) {
+        this.roles = roles;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -119,5 +142,13 @@ public class UserEntity {
     @Override
     public int hashCode() {
         return Objects.hash(id, username, password, email, address, phone, gender, birthday, freelance);
+    }
+
+    public Collection<UserRoleEntity> getUserRolesById() {
+        return userRolesById;
+    }
+
+    public void setUserRolesById(Collection<UserRoleEntity> userRolesById) {
+        this.userRolesById = userRolesById;
     }
 }

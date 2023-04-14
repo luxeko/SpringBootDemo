@@ -4,7 +4,6 @@ public class ResponseDTO {
     String code;
     String status;
     Object message;
-
     Object data;
 
     public Object getMessage() {
